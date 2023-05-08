@@ -131,12 +131,7 @@ app.get("/logout", (req, res) => {
 });
 
 // Update user
-app.post("/update-user/:id", async (req, res) => {
-  const updateUser = await User.findOne({ _id: req.params.id });
-  updateUser.username = req.body.username;
-  await updateUser.save();
-  res.json(updateUser);
-});
+app.post("/update-user/:id", userController.updateUser);
 
 // Show all user
 app.get("/users", userController.allUsers);

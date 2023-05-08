@@ -9,4 +9,18 @@ module.exports = {
       return res.status(500).json(error.message);
     }
   },
+
+  updateUser: async function (req, res) {
+    const updateUser = await userService.updateUser({
+      _id: req.params.id,
+      username: req.body.username,
+      displayPhoto: req.body.displayPhoto,
+      fullName: req.body.fullName,
+      nickName: req.body.nickName,
+      DOB: req.body.DOB,
+      telegramMobileNumber: req.body.telegramMobileNumber,
+      password: req.body.password,
+    });
+    res.status(200).json(updateUser);
+  },
 };
