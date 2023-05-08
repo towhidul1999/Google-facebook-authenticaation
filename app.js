@@ -11,6 +11,7 @@ const User = require("./models/User");
 const passport = require("passport");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
+const userController = require("./controllers/userController");
 
 app.set("view engine", "ejs");
 app.use(cors());
@@ -128,5 +129,16 @@ app.get("/logout", (req, res) => {
     res.status(500).send(error.message);
   }
 });
+
+// Update user
+app.post("/update-user/:id", async (req, res) => {
+  const updateUser = await User.findOne({ _id: req.params.id });
+  updateUser.username = req.body.username;
+  await updateUser.save();
+  res.json(updateUser);
+});
+
+// Show all user
+app.get("/users", userController.allUsers);
 
 module.exports = app;
